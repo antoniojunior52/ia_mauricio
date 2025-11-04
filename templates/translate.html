@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Recurso 1: Tradutor de IA do Azure</h2>
+    <form method="POST">
+        <label for="text">Texto para Traduzir (de PT):</label>
+        <textarea name="text" rows="5"></textarea>
+        
+        <label for="language">Traduzir para:</label>
+        <select name="language">
+            <option value="en">Inglês (English)</option>
+            <option value="es">Espanhol (Español)</option>
+        </select>
+        
+        <button type="submit">Traduzir</button>
+    </form>
+    
+    {% if translated_text %}
+        <div class="result">
+            <h3>Resultado da Tradução:</h3>
+            <p>{{ translated_text }}</p>
+        </div>
+    {% endif %}
+{% endblock %}

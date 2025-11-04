@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Recurso 2: Visão de IA do Azure (Análise de Imagem)</h2>
+    <form method="POST">
+        <label for="image_url">URL da Imagem:</label>
+        <input type="text" name="image_url" placeholder="https://exemplo.com/imagem.jpg" value="{{ image_url }}">
+        <button type="submit">Analisar Imagem</button>
+    </form>
+    
+    {% if result and result is not string %}
+        <div class="result">
+            <h3>Resultados da Análise:</h3>
+            
+            {% if result.caption %}
+                <h4>Legenda (Descrição):</h4>
+                <p>"{{ result.caption.text }}" (Confiança: {{ "%.2f"|format(result.caption.confidence * 100) }}%)</p>
+            {% endif %}
+
+            {% if result.tags %}
+                <h4>Tags:</h4>
+                <ul>
+                    {% for tag in result.tags.list %}
+                        <li>{{ tag.name }} (Confiança: {{ "%.2f"|format(tag.confidence * 100) }}%)</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            
+            {% if result.objects %}
+                <h4>Objetos Detectados:</h4>
+                 <ul>
+                    {% for obj in result.objects.list %}
+                        <li>{{ obj.tags[0].name }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <img src="{{ image_url }}" alt="Imagem Analisada">
+        </div>
+    {% elif result %}
+        <div class="result">
+            <p>{{ result }}</p> </div>
+    {% endif %}
+{% endblock %}

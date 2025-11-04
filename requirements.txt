@@ -1,0 +1,5 @@
+Flask
+azure-ai-translation-text
+azure-ai-vision-imageanalysis
+python-dotenv
+requests
